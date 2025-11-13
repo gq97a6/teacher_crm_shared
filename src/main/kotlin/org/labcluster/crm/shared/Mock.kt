@@ -111,4 +111,15 @@ object Mock {
             attendees = students.shuffled().take(6)
         )
     }
+
+    val groups = List(20) {
+        Group(
+            teacher = teachers.random(),
+            students = students.shuffled().take(6),
+            lessons = lessons.shuffled().take(10),
+            interval = 7,
+            dayOfWeek = 0,
+            timeOfDay = (16 * 3600) + (30 * 60)
+        )
+    }
 }
