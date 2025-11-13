@@ -9,10 +9,7 @@ data class Student(
     val name: String = "",
     val surname: String = "",
     val uuid: String = Uuid.random().toString()
-) {
-    companion object {
-        fun StudentEntity.toModel() = Student(name, surname, uuid)
-    }
+)
 
-    fun toEntity() = StudentEntity(name, surname, uuid)
-}
+fun Student.toEntity() = StudentEntity(name, surname, uuid)
+fun StudentEntity.toModel() = Student(name, surname, uuid)

@@ -1,33 +1,19 @@
 CREATE TABLE LessonEntity (
-    uuid TEXT NOT NULL PRIMARY KEY,
+    teacherUuid TEXT REFERENCES TeacherEntity(uuid) ON DELETE SET NULL,
     epochStart INTEGER,
     epochBegin INTEGER,
     duration INTEGER NOT NULL,
     courseUuid TEXT REFERENCES CourseEntity(uuid) ON DELETE SET NULL,
-    topicUuid TEXT REFERENCES TopicEntity(uuid) ON DELETE SET NULL
-);
-
-CREATE TABLE LessonStudentLink (
-    lessonUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE CASCADE,
-    studentUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE CASCADE,
-    PRIMARY KEY(lessonUuid, studentUuid)
+    topicUuid TEXT REFERENCES TopicEntity(uuid) ON DELETE SET NULL,
+    uuid TEXT NOT NULL PRIMARY KEY
 );
 
 insert:
-INSERT OR REPLACE INTO LessonEntity(uuid, epochStart, epochBegin, duration, courseUuid, topicUuid)
+INSERT OR REPLACE INTO LessonEntity(teacherUuid, epochStart, epochBegin, duration, courseUuid, topicUuid, uuid)
 VALUES ?;
-
-linkStudent:
-INSERT OR REPLACE INTO LessonStudentLink(lessonUuid, studentUuid) VALUES (?, ?);
 
 selectByUuid:
 SELECT * FROM LessonEntity WHERE uuid = ?;
 
 selectAll:
 SELECT * FROM LessonEntity;
-
-selectAttendeesForLesson:
-SELECT StudentEntity.*
-FROM StudentEntity
-JOIN LessonStudentLink ON StudentEntity.uuid = LessonStudentLink.studentUuid
-WHERE LessonStudentLink.lessonUuid = ?;

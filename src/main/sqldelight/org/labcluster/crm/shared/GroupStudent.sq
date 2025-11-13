@@ -1,0 +1,17 @@
+CREATE TABLE GroupStudentLink (
+    groupUuid TEXT NOT NULL REFERENCES GroupEntity(uuid) ON DELETE CASCADE,
+    studentUuid TEXT NOT NULL REFERENCES StudentEntity(uuid) ON DELETE CASCADE,
+    PRIMARY KEY(groupUuid, studentUuid)
+);
+
+link:
+INSERT OR REPLACE INTO GroupStudentLink(groupUuid, studentUuid) VALUES (?, ?);
+
+selectAll:
+SELECT * FROM GroupStudentLink;
+
+selectLinkedWith:
+SELECT StudentEntity.*
+FROM StudentEntity
+JOIN GroupStudentLink ON StudentEntity.uuid = GroupStudentLink.studentUuid
+WHERE GroupStudentLink.groupUuid = ?;

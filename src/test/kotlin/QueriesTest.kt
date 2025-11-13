@@ -1,11 +1,8 @@
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 import org.labcluster.crm.shared.Database
 import org.labcluster.crm.shared.Mock
-import org.labcluster.crm.shared.model.Course.Companion.toModel
-import org.labcluster.crm.shared.model.Lesson.Companion.toModel
-import org.labcluster.crm.shared.model.Student.Companion.toModel
-import org.labcluster.crm.shared.model.Teacher.Companion.toModel
-import org.labcluster.crm.shared.model.Topic.Companion.toModel
+import org.labcluster.crm.shared.model.toEntity
+import org.labcluster.crm.shared.model.toModel
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -32,7 +29,7 @@ class QueriesTest {
             lessons.forEach { lesson ->
                 db.lessonQueries.insert(lesson.toEntity())
                 lesson.attendees.forEach { student ->
-                    db.lessonQueries.linkStudent(lesson.uuid, student.uuid)
+                    db.lessonStudentQueries.linkStudent(lesson.uuid, student.uuid)
                 }
             }
         }

@@ -2,8 +2,8 @@ package org.labcluster.crm.shared.repository
 
 import org.labcluster.crm.shared.Database
 import org.labcluster.crm.shared.model.Course
-import org.labcluster.crm.shared.model.Course.Companion.toModel
-import org.labcluster.crm.shared.model.Topic.Companion.toModel
+import org.labcluster.crm.shared.model.toEntity
+import org.labcluster.crm.shared.model.toModel
 
 open class CourseRepository(val defaultDatabase: Database? = null) {
 

@@ -8,10 +8,7 @@ import kotlin.uuid.Uuid
 data class Topic(
     val name: String = "",
     val uuid: String = Uuid.random().toString()
-) {
-    companion object {
-        fun TopicEntity.toModel() = Topic(name, uuid)
-    }
+)
 
-    fun toEntity() = TopicEntity(name, uuid)
-}
+fun Topic.toEntity() = TopicEntity(name, uuid)
+fun TopicEntity.toModel() = Topic(name, uuid)

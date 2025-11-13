@@ -1,0 +1,16 @@
+CREATE TABLE GroupEntity (
+    teacherUuid TEXT REFERENCES TeacherEntity(uuid) ON DELETE RESTRICT,
+    interval INTEGER,
+    dayOfWeek INTEGER,
+    timeOfDay INTEGER,
+    uuid TEXT NOT NULL PRIMARY KEY
+);
+
+insert:
+INSERT OR REPLACE INTO GroupEntity(teacherUuid, interval, dayOfWeek, timeOfDay, uuid) VALUES ?;
+
+selectByUuid:
+SELECT * FROM GroupEntity WHERE uuid = ?;
+
+selectAll:
+SELECT * FROM GroupEntity;
