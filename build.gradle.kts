@@ -9,15 +9,14 @@ plugins {
 }
 
 group = "org.labcluster.crm"
-version = "1.0.6-SNAPSHOT"
+version = "1.0.7-SNAPSHOT"
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")
 
     //Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-cbor:1.9.0")
+    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")
+    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 
     //SQLDelight
     implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
