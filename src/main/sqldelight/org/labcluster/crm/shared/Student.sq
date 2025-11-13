@@ -1,0 +1,14 @@
+CREATE TABLE StudentEntity (
+    name TEXT NOT NULL,
+    surname TEXT NOT NULL,
+    uuid TEXT NOT NULL PRIMARY KEY
+);
+
+insert:
+INSERT OR REPLACE INTO StudentEntity(name, surname, uuid) VALUES ?;
+
+selectByUuid:
+SELECT * FROM StudentEntity WHERE uuid = ?;
+
+selectAll:
+SELECT * FROM StudentEntity;

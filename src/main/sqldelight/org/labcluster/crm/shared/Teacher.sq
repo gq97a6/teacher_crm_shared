@@ -1,0 +1,14 @@
+CREATE TABLE TeacherEntity (
+    name TEXT NOT NULL,
+    surname TEXT NOT NULL,
+    uuid TEXT NOT NULL PRIMARY KEY
+);
+
+insert:
+INSERT OR REPLACE INTO TeacherEntity(name, surname, uuid) VALUES ?;
+
+selectByUuid:
+SELECT * FROM TeacherEntity WHERE uuid = ?;
+
+selectAll:
+SELECT * FROM TeacherEntity;

@@ -1,0 +1,13 @@
+CREATE TABLE CourseEntity (
+    name TEXT NOT NULL,
+    uuid TEXT NOT NULL PRIMARY KEY
+);
+
+insert:
+INSERT OR REPLACE INTO CourseEntity(name, uuid) VALUES ?;
+
+selectByUuid:
+SELECT * FROM CourseEntity WHERE uuid = ?;
+
+selectAll:
+SELECT * FROM CourseEntity;

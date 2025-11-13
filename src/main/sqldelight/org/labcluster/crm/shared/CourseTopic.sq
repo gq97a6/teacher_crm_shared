@@ -1,0 +1,17 @@
+CREATE TABLE CourseTopicLink (
+    topicUuid TEXT NOT NULL REFERENCES TopicEntity(uuid) ON DELETE CASCADE,
+    courseUuid TEXT NOT NULL REFERENCES CourseEntity(uuid) ON DELETE CASCADE,
+    PRIMARY KEY(topicUuid, courseUuid)
+);
+
+link:
+INSERT OR REPLACE INTO CourseTopicLink(topicUuid, courseUuid) VALUES (?, ?);
+
+selectAll:
+SELECT * FROM CourseTopicLink;
+
+selectLinkedWith:
+SELECT TopicEntity.*
+FROM TopicEntity
+JOIN CourseTopicLink ON TopicEntity.uuid = CourseTopicLink.topicUuid
+WHERE CourseTopicLink.courseUuid = ?;

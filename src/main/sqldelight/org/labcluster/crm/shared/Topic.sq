@@ -1,0 +1,13 @@
+CREATE TABLE TopicEntity (
+    name TEXT NOT NULL,
+    uuid TEXT NOT NULL PRIMARY KEY
+);
+
+insert:
+INSERT OR REPLACE INTO TopicEntity(name, uuid) VALUES ?;
+
+selectByUuid:
+SELECT * FROM TopicEntity WHERE uuid = ?;
+
+selectAll:
+SELECT * FROM TopicEntity;
