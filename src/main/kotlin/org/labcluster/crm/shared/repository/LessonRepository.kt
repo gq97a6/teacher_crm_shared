@@ -22,6 +22,10 @@ open class LessonRepository(val defaultDatabase: Database? = null) {
                     db.studentQueries.insert(student.toEntity())
                     db.timetableQueries.insert(student.uuid, lesson.uuid)
                 }
+
+                lesson.attendance.forEach { studentUuid ->
+                    db.attendanceQueries.insert(lesson.uuid, studentUuid)
+                }
             }
         }
     }.getOrNull()
