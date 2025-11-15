@@ -110,8 +110,7 @@ object Mock {
             course = courses.random(),
             teacher1 = teachers.random(),
             teacher2 = teachers.random(),
-            students = students.shuffled().take(10),
-            attendance = students.shuffled().take(10).map { student -> student.uuid }
+            students = students.shuffled().take(10)
         )
     }
 
