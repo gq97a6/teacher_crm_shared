@@ -12,3 +12,9 @@ SELECT LessonEntity.*
 FROM LessonEntity
 JOIN Timetable ON LessonEntity.uuid = Timetable.studentUuid
 WHERE Timetable.studentUuid = ?;
+
+selectStudentsOfLesson:
+SELECT StudentEntity.*
+FROM StudentEntity
+JOIN Timetable ON StudentEntity.uuid = Timetable.studentUuid
+WHERE Timetable.lessonUuid = ?;

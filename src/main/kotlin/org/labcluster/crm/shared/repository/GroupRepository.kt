@@ -14,9 +14,14 @@ open class GroupRepository(val defaultDatabase: Database? = null) {
 
     open fun insert(list: List<Group>, db: Database? = defaultDatabase): Unit? = runCatching {
         if (db == null) throw NullPointerException()
-        return db.groupQueries.transaction {
-            list.forEach {
-                db.groupQueries.insert(it.toEntity())
+        return db.transaction {
+            list.forEach { group ->
+                db.groupQueries.insert(group.toEntity())
+
+                group.students.forEach { student ->
+                    db.studentQueries.insert(student.toEntity())
+                    db.groupStudentQueries.insert(group.uuid, student.uuid)
+                }
             }
         }
     }.getOrNull()

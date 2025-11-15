@@ -13,6 +13,7 @@ data class Lesson(
     val topic: Topic? = null,
     val teacher1: Teacher? = null,
     val teacher2: Teacher? = null,
+    val students: List<Student> = listOf(),
     val uuid: String = Uuid.random().toString()
 )
 
@@ -26,8 +27,8 @@ fun Lesson.toEntity() = LessonEntity(
     uuid,
 )
 
-fun LessonEntity.toModel(topic: Topic?, teacher1: Teacher?, teacher2: Teacher?) = Lesson(
-    epochStart, epochBegin, duration, topic, teacher1, teacher2, uuid
+fun LessonEntity.toModel(topic: Topic?, teacher1: Teacher?, teacher2: Teacher?, students: List<Student>) = Lesson(
+    epochStart, epochBegin, duration, topic, teacher1, teacher2, students, uuid
 )
 
 fun LessonEntity.toModel(db: Database): Lesson? = runCatching {
@@ -46,6 +47,11 @@ fun LessonEntity.toModel(db: Database): Lesson? = runCatching {
                 ?.toModel()
         }
 
+        val students = db.timetableQueries
+            .selectStudentsOfLesson(uuid)
+            .executeAsList()
+            .map { it.toModel() }
+
         val topic = topicUuid?.let { notNullUuid ->
             db.topicQueries
                 .selectByUuid(notNullUuid)
@@ -53,6 +59,6 @@ fun LessonEntity.toModel(db: Database): Lesson? = runCatching {
                 ?.toModel()
         }
 
-        this@toModel.toModel(topic, teacher1, teacher2)
+        this@toModel.toModel(topic, teacher1, teacher2, students)
     }
 }.getOrNull()

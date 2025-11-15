@@ -15,8 +15,13 @@ open class LessonRepository(val defaultDatabase: Database? = null) {
     open fun insert(list: List<Lesson>, db: Database? = defaultDatabase): Unit? = runCatching {
         if (db == null) throw NullPointerException()
         return db.lessonQueries.transaction {
-            list.forEach {
-                db.lessonQueries.insert(it.toEntity())
+            list.forEach { lesson ->
+                db.lessonQueries.insert(lesson.toEntity())
+
+                lesson.students.forEach { student ->
+                    db.studentQueries.insert(student.toEntity())
+                    db.timetableQueries.insert(student.uuid, lesson.uuid)
+                }
             }
         }
     }.getOrNull()

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "org.labcluster.crm"
-version = "1.0.9-SNAPSHOT"
+version = "1.0.11-SNAPSHOT"
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")

@@ -30,4 +30,9 @@ open class StudentRepository(val defaultDatabase: Database? = null) {
         if (db == null) throw NullPointerException()
         return db.attendanceQueries.selectAttendeesForLesson(lessonUuid).executeAsList().map { it.toModel() }
     }.getOrNull()
+
+    open fun selectWillAttend(lessonUuid: String, db: Database? = defaultDatabase): List<Student>? = runCatching {
+        if (db == null) throw NullPointerException()
+        return db.timetableQueries.selectStudentsOfLesson(lessonUuid).executeAsList().map { it.toModel() }
+    }.getOrNull()
 }
