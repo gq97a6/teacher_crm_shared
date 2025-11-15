@@ -20,7 +20,7 @@ open class CourseRepository(val defaultDatabase: Database? = null) {
 
                 course.topics.forEach { topic ->
                     db.topicQueries.insert(topic.toEntity())
-                    db.courseTopicQueries.link(topic.uuid, course.uuid)
+                    db.courseTopicQueries.insert(topic.uuid, course.uuid)
                 }
             }
         }

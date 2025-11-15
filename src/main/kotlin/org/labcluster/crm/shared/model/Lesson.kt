@@ -7,49 +7,43 @@ import kotlin.uuid.Uuid
 
 @Serializable
 data class Lesson(
-    val teacher: Teacher? = null,
-    val epochStart: Long? = null,
+    val epochStart: Long = 0,
     var epochBegin: Long? = null,
-    var attendees: List<Student> = listOf(),
     val duration: Long = 5400,
-    val course: Course? = null,
     val topic: Topic? = null,
+    val teacher1: Teacher? = null,
+    val teacher2: Teacher? = null,
     val uuid: String = Uuid.random().toString()
 )
 
 fun Lesson.toEntity() = LessonEntity(
-    teacher?.uuid,
     epochStart,
     epochBegin,
     duration,
-    course?.uuid,
     topic?.uuid,
+    teacher1?.uuid,
+    teacher2?.uuid,
     uuid,
 )
 
-fun LessonEntity.toModel(teacher: Teacher?, attendees: List<Student>, course: Course?, topic: Topic?) = Lesson(
-    teacher, epochStart, epochBegin, attendees, duration, course, topic, uuid
+fun LessonEntity.toModel(topic: Topic?, teacher1: Teacher?, teacher2: Teacher?) = Lesson(
+    epochStart, epochBegin, duration, topic, teacher1, teacher2, uuid
 )
 
-fun LessonEntity.toModel(db: Database): Lesson {
-    return db.transactionWithResult {
-        val teacher = teacherUuid?.let { notNullUuid ->
+fun LessonEntity.toModel(db: Database): Lesson? = runCatching {
+    db.transactionWithResult {
+        val teacher1 = teacher1Uuid?.let { notNullUuid ->
             db.teacherQueries
                 .selectByUuid(notNullUuid)
                 .executeAsOneOrNull()
                 ?.toModel()
         }
 
-        val attendees = db.lessonStudentQueries
-            .selectAttendeesForLesson(uuid)
-            .executeAsList()
-            .map { it.toModel() }
-
-        val course = courseUuid?.let { notNullUuid ->
-            db.courseQueries
+        val teacher2 = teacher1Uuid?.let { notNullUuid ->
+            db.teacherQueries
                 .selectByUuid(notNullUuid)
                 .executeAsOneOrNull()
-                ?.toModel(db)
+                ?.toModel()
         }
 
         val topic = topicUuid?.let { notNullUuid ->
@@ -59,6 +53,6 @@ fun LessonEntity.toModel(db: Database): Lesson {
                 ?.toModel()
         }
 
-        this@toModel.toModel(teacher, attendees, course, topic)
+        this@toModel.toModel(topic, teacher1, teacher2)
     }
-}
+}.getOrNull()

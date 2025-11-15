@@ -1,0 +1,14 @@
+CREATE TABLE Attendance (
+    lessonUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
+    studentUuid TEXT NOT NULL REFERENCES StudentEntity(uuid) ON DELETE RESTRICT,
+    PRIMARY KEY(lessonUuid, studentUuid)
+);
+
+insert:
+INSERT OR REPLACE INTO Attendance(lessonUuid, studentUuid) VALUES (?, ?);
+
+selectAttendeesForLesson:
+SELECT StudentEntity.*
+FROM StudentEntity
+JOIN Attendance ON StudentEntity.uuid = Attendance.studentUuid
+WHERE Attendance.lessonUuid = ?;

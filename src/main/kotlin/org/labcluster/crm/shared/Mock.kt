@@ -106,9 +106,9 @@ object Mock {
     val lessons = List(20) {
         Lesson(
             epochStart = LocalDateTime.of(2025, 1, it + 1, 16, 0).toEpochSecond(ZoneOffset.UTC),
-            course = courses.random(),
             topic = topics.random(),
-            attendees = students.shuffled().take(6)
+            teacher1 = teachers.random(),
+            teacher2 = teachers.random(),
         )
     }
 
@@ -116,10 +116,9 @@ object Mock {
         Group(
             teacher = teachers.random(),
             students = students.shuffled().take(6),
-            lessons = lessons.shuffled().take(10),
             interval = 7,
-            dayOfWeek = 0,
-            timeOfDay = (16 * 3600) + (30 * 60)
+            day = 0,
+            time = (16 * 3600) + (30 * 60)
         )
     }
 }

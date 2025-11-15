@@ -21,7 +21,7 @@ open class GroupRepository(val defaultDatabase: Database? = null) {
         }
     }.getOrNull()
 
-    open fun selectAll(db: Database? = defaultDatabase): List<Group>? = runCatching {
+    open fun selectAll(db: Database? = defaultDatabase): List<Group?>? = runCatching {
         if (db == null) throw NullPointerException()
         return db.groupQueries.selectAll().executeAsList().map { it.toModel(db) }
     }.getOrNull()

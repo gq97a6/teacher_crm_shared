@@ -15,7 +15,7 @@ data class Course(
 fun Course.toEntity() = CourseEntity(name, uuid)
 fun CourseEntity.toModel(topics: List<Topic>) = Course(name, topics, uuid)
 fun CourseEntity.toModel(db: Database): Course = db.courseTopicQueries
-    .selectLinkedWith(uuid)
+    .selectTopicsOfCourse(uuid)
     .executeAsList()
     .map { it.toModel() }
     .let { this.toModel(it) }

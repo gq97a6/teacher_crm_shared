@@ -7,29 +7,28 @@ import kotlin.uuid.Uuid
 
 @Serializable
 data class Group(
-    val teacher: Teacher? = Teacher(),
+    val day: Long = 0,
+    val time: Long = 0,
+    val interval: Long = 7,
+    val teacher: Teacher? = null,
     val students: List<Student> = listOf(),
-    val lessons: List<Lesson> = listOf(),
-    val interval: Long? = 7,
-    val dayOfWeek: Long? = null,
-    val timeOfDay: Long? = null,
     val uuid: String = Uuid.random().toString()
 )
 
 fun Group.toEntity() = GroupEntity(
-    teacher?.uuid,
+    day,
+    time,
     interval,
-    dayOfWeek,
-    timeOfDay,
+    teacher?.uuid,
     uuid,
 )
 
-fun GroupEntity.toModel(teacher: Teacher?, students: List<Student>, lessons: List<Lesson>) = Group(
-    teacher, students, lessons, interval, dayOfWeek, timeOfDay, uuid
+fun GroupEntity.toModel(teacher: Teacher?, students: List<Student>) = Group(
+    day, time, interval, teacher, students, uuid
 )
 
-fun GroupEntity.toModel(db: Database): Group {
-    return db.transactionWithResult {
+fun GroupEntity.toModel(db: Database): Group? = runCatching {
+    db.transactionWithResult {
         val teacher = teacherUuid?.let { notNullUuid ->
             db.teacherQueries
                 .selectByUuid(notNullUuid)
@@ -38,15 +37,10 @@ fun GroupEntity.toModel(db: Database): Group {
         }
 
         val students = db.groupStudentQueries
-            .selectLinkedWith(uuid)
+            .selectStudentsOfGroup(uuid)
             .executeAsList()
             .map { it.toModel() }
 
-        val lessons = db.groupLessonQueries
-            .selectLinkedWith(uuid)
-            .executeAsList()
-            .map { it.toModel(db) }
-
-        this@toModel.toModel(teacher, students, lessons)
+        this@toModel.toModel(teacher, students)
     }
-}
+}.getOrNull()

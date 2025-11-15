@@ -20,20 +20,13 @@ class RepositoriesTest {
             courses.forEach { course ->
                 db.courseQueries.insert(course.toEntity())
                 course.topics.forEach { topic ->
-                    db.courseTopicQueries.link(topic.uuid, course.uuid)
+                    db.courseTopicQueries.insert(topic.uuid, course.uuid)
                 }
             }
 
             lessons.forEach { lesson ->
                 db.lessonQueries.insert(lesson.toEntity())
-                lesson.attendees.forEach { student ->
-                    db.lessonStudentQueries.linkStudent(lesson.uuid, student.uuid)
-                }
             }
         }
-    }
-
-    @Test
-    fun test() {
     }
 }

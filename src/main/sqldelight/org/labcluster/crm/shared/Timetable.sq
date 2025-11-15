@@ -1,0 +1,14 @@
+CREATE TABLE Timetable (
+    studentUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
+    lessonUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
+    PRIMARY KEY(studentUuid, lessonUuid)
+);
+
+insert:
+INSERT OR REPLACE INTO Timetable(studentUuid, lessonUuid) VALUES (?, ?);
+
+selectLessonsOfStudent:
+SELECT LessonEntity.*
+FROM LessonEntity
+JOIN Timetable ON LessonEntity.uuid = Timetable.studentUuid
+WHERE Timetable.studentUuid = ?;

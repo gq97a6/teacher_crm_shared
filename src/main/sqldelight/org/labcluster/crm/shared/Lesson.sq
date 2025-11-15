@@ -1,15 +1,15 @@
 CREATE TABLE LessonEntity (
-    teacherUuid TEXT REFERENCES TeacherEntity(uuid) ON DELETE SET NULL,
-    epochStart INTEGER,
+    epochStart INTEGER NOT NULL,
     epochBegin INTEGER,
     duration INTEGER NOT NULL,
-    courseUuid TEXT REFERENCES CourseEntity(uuid) ON DELETE SET NULL,
-    topicUuid TEXT REFERENCES TopicEntity(uuid) ON DELETE SET NULL,
+    topicUuid TEXT REFERENCES TopicEntity(uuid) ON DELETE RESTRICT,
+    teacher1Uuid TEXT REFERENCES TeacherEntity(uuid) ON DELETE RESTRICT,
+    teacher2Uuid TEXT REFERENCES TeacherEntity(uuid) ON DELETE RESTRICT,
     uuid TEXT NOT NULL PRIMARY KEY
 );
 
 insert:
-INSERT OR REPLACE INTO LessonEntity(teacherUuid, epochStart, epochBegin, duration, courseUuid, topicUuid, uuid)
+INSERT OR REPLACE INTO LessonEntity(epochStart, epochBegin, duration, topicUuid, teacher1Uuid, teacher2Uuid, uuid)
 VALUES ?;
 
 selectByUuid:

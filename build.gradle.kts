@@ -5,11 +5,11 @@ plugins {
     kotlin("plugin.serialization") version "2.2.0"
     kotlin("plugin.allopen") version "2.2.21"
     id("app.cash.sqldelight") version "2.1.0"
-    id("maven-publish") // publishToMavenLocal
+    id("maven-publish")
 }
 
 group = "org.labcluster.crm"
-version = "1.0.8-SNAPSHOT"
+version = "1.0.9-SNAPSHOT"
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")

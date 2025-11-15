@@ -21,8 +21,13 @@ open class LessonRepository(val defaultDatabase: Database? = null) {
         }
     }.getOrNull()
 
-    open fun selectAll(db: Database? = defaultDatabase): List<Lesson>? = runCatching {
+    open fun selectAll(db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
         if (db == null) throw NullPointerException()
         return db.lessonQueries.selectAll().executeAsList().map { it.toModel(db) }
+    }.getOrNull()
+
+    open fun selectTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
+        if (db == null) throw NullPointerException()
+        return db.timetableQueries.selectLessonsOfStudent(studentUuid).executeAsList().map { it.toModel(db) }
     }.getOrNull()
 }
