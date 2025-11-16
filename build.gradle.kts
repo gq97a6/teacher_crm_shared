@@ -9,14 +9,11 @@ plugins {
 }
 
 group = "org.labcluster.crm"
-version = "1.0.14-SNAPSHOT"
+version = "1.0.15-SNAPSHOT"
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")
-
-    //Serialization
-    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.9.0")
-    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
 
     //SQLDelight
     implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
@@ -35,6 +32,7 @@ kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.fromTarget("21")
         freeCompilerArgs.add("-opt-in=kotlin.uuid.ExperimentalUuidApi")
+        freeCompilerArgs.add("-opt-in=kotlin.time.ExperimentalTime")
     }
 }
 
