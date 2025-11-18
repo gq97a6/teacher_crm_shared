@@ -20,7 +20,7 @@ open class LessonRepository(val defaultDatabase: Database? = null) {
 
                 lesson.students.forEach { student ->
                     db.studentQueries.insert(student.toEntity())
-                    db.timetableQueries.insert(student.uuid, lesson.uuid)
+                    db.timetableStudentQueries.insert(student.uuid, lesson.uuid)
                 }
 
                 lesson.attendance.forEach { studentUuid ->
@@ -35,8 +35,13 @@ open class LessonRepository(val defaultDatabase: Database? = null) {
         return db.lessonQueries.selectAll().executeAsList().map { it.toModel(db) }
     }.getOrNull()
 
-    open fun selectTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
+    open fun selectStudentTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
         if (db == null) throw NullPointerException()
-        return db.timetableQueries.selectLessonsOfStudent(studentUuid).executeAsList().map { it.toModel(db) }
+        return db.timetableStudentQueries.selectLessonsOfStudent(studentUuid).executeAsList().map { it.toModel(db) }
+    }.getOrNull()
+
+    open fun selectGroupTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
+        if (db == null) throw NullPointerException()
+        return db.timetableStudentQueries.selectLessonsOfStudent(studentUuid).executeAsList().map { it.toModel(db) }
     }.getOrNull()
 }

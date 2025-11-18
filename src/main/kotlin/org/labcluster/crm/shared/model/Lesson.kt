@@ -80,7 +80,7 @@ fun LessonEntity.toModel(db: Database): Lesson? = runCatching {
                 ?.toModel()
         }
 
-        val students = db.timetableQueries
+        val students = db.timetableStudentQueries
             .selectStudentsOfLesson(uuid)
             .executeAsList()
             .map { it.toModel() }

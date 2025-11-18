@@ -1,0 +1,14 @@
+CREATE TABLE TimetableGroup (
+    groupUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
+    lessonUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
+    PRIMARY KEY(groupUuid, lessonUuid)
+);
+
+insert:
+INSERT OR REPLACE INTO TimetableGroup(groupUuid, lessonUuid) VALUES (?, ?);
+
+selectLessonsOfGroup:
+SELECT LessonEntity.*
+FROM LessonEntity
+JOIN TimetableGroup ON LessonEntity.uuid = TimetableGroup.groupUuid
+WHERE TimetableGroup.groupUuid = ?;
