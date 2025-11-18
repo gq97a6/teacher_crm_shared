@@ -1,8 +1,11 @@
 package org.labcluster.crm.shared
 
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import org.labcluster.crm.shared.model.*
-import java.time.LocalDateTime
-import java.time.ZoneOffset
+import kotlin.time.Clock
 
 object Mock {
     val students = listOf(
@@ -103,15 +106,42 @@ object Mock {
         )
     )
 
-    val lessons = List(20) {
-        Lesson(
-            epochStart = LocalDateTime.of(2025, 1, it + 1, 16, 0).toEpochSecond(ZoneOffset.UTC),
+    val lessons = buildList {
+        val timeZone = TimeZone.currentSystemDefault()
+        val current = Clock.System.now().toLocalDateTime(timeZone)
+
+        fun lessonWith(epochStart: Long) = Lesson(
+            epochStart = epochStart,
             topic = topics.random(),
             course = courses.random(),
             teacher1 = teachers.random(),
             teacher2 = teachers.random(),
             students = students.shuffled().take(10)
         )
+
+        fun epochStartWith(year: Int, month: Int, day: Int) = LocalDateTime(
+            year,
+            month,
+            day,
+            listOf(10, 14, 16, 20).random(),
+            listOf(0, 15, 30, 45).random()
+        ).toInstant(timeZone).epochSeconds
+
+        repeat(3) { yearOffsetIndex ->
+            repeat(12) { monthIndex ->
+                repeat(50) { dayIndex ->
+                    add(
+                        lessonWith(
+                            epochStartWith(
+                                current.year - 1 + yearOffsetIndex, //Previous, current, next
+                                1 + monthIndex,
+                                1 + dayIndex / 2, //Two lessons per day
+                            )
+                        )
+                    )
+                }
+            }
+        }
     }
 
     val groups = List(20) {
