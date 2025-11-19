@@ -1,13 +1,13 @@
 CREATE TABLE GroupEntity (
-    day INTEGER NOT NULL,
-    time INTEGER NOT NULL,
+    dayIndex INTEGER NOT NULL,
+    epoch INTEGER NOT NULL,
     interval INTEGER NOT NULL,
     teacherUuid TEXT REFERENCES TeacherEntity(uuid) ON DELETE RESTRICT,
     uuid TEXT NOT NULL PRIMARY KEY
 );
 
 insert:
-INSERT OR REPLACE INTO GroupEntity(teacherUuid, interval, day, time, uuid) VALUES ?;
+INSERT OR REPLACE INTO GroupEntity(dayIndex, epoch, interval, teacherUuid, uuid) VALUES ?;
 
 selectByUuid:
 SELECT * FROM GroupEntity WHERE uuid = ?;

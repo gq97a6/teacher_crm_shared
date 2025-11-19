@@ -7,8 +7,8 @@ import kotlin.uuid.Uuid
 
 @Serializable
 data class Group(
-    val day: Long = 0,
-    val time: Long = 0,
+    val dayIndex: Long = 0,
+    val epoch: Long = 0,
     val interval: Long = 7,
     val teacher: Teacher? = null,
     val students: List<Student> = listOf(),
@@ -16,15 +16,15 @@ data class Group(
 )
 
 fun Group.toEntity() = GroupEntity(
-    day,
-    time,
+    dayIndex,
+    epoch,
     interval,
     teacher?.uuid,
     uuid,
 )
 
 fun GroupEntity.toModel(teacher: Teacher?, students: List<Student>) = Group(
-    day, time, interval, teacher, students, uuid
+    dayIndex, epoch, interval, teacher, students, uuid
 )
 
 fun GroupEntity.toModel(db: Database): Group? = runCatching {

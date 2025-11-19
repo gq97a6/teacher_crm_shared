@@ -149,8 +149,8 @@ object Mock {
             teacher = teachers.random(),
             students = students.shuffled().take(6),
             interval = 7,
-            day = 0,
-            time = (16 * 3600) + (30 * 60)
+            dayIndex = 0,
+            epoch = (16 * 3600) + (30 * 60)
         )
     }
 }
