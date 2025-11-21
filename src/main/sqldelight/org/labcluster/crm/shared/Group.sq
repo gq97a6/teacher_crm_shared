@@ -14,3 +14,8 @@ SELECT * FROM GroupEntity WHERE uuid = ?;
 
 selectAll:
 SELECT * FROM GroupEntity;
+
+selectTaughtBy:
+SELECT GroupEntity.*
+FROM GroupEntity
+WHERE GroupEntity.teacherUuid = ?;

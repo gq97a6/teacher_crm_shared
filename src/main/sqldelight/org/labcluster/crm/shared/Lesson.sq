@@ -18,3 +18,8 @@ SELECT * FROM LessonEntity WHERE uuid = ?;
 
 selectAll:
 SELECT * FROM LessonEntity;
+
+selectTeacherTimetable:
+SELECT LessonEntity.*
+FROM LessonEntity
+WHERE LessonEntity.teacher1Uuid = ?;

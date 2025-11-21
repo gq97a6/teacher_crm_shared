@@ -7,7 +7,7 @@ CREATE TABLE TimetableGroup (
 insert:
 INSERT OR REPLACE INTO TimetableGroup(groupUuid, lessonUuid) VALUES (?, ?);
 
-selectLessonsOfGroup:
+selectGroupTimetable:
 SELECT LessonEntity.*
 FROM LessonEntity
 JOIN TimetableGroup ON LessonEntity.uuid = TimetableGroup.groupUuid

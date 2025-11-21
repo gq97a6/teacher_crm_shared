@@ -30,4 +30,9 @@ open class GroupRepository(val defaultDatabase: Database? = null) {
         if (db == null) throw NullPointerException()
         return db.groupQueries.selectAll().executeAsList().map { it.toModel(db) }
     }.getOrNull()
+
+    open fun selectTaughtBy(teacherUuid: String, db: Database? = defaultDatabase): List<Group?>? = runCatching {
+        if (db == null) throw NullPointerException()
+        return db.groupQueries.selectTaughtBy(teacherUuid).executeAsList().map { it.toModel(db) }
+    }.getOrNull()
 }

@@ -7,7 +7,7 @@ CREATE TABLE TimetableStudent (
 insert:
 INSERT OR REPLACE INTO TimetableStudent(studentUuid, lessonUuid) VALUES (?, ?);
 
-selectLessonsOfStudent:
+selectStudentTimetable:
 SELECT LessonEntity.*
 FROM LessonEntity
 JOIN TimetableStudent ON LessonEntity.uuid = TimetableStudent.studentUuid
