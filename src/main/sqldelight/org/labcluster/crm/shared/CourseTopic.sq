@@ -1,17 +1,17 @@
-CREATE TABLE CourseTopic (
+CREATE TABLE CourseTopicEntity (
     courseUuid TEXT NOT NULL REFERENCES CourseEntity(uuid) ON DELETE RESTRICT,
     topicUuid TEXT NOT NULL REFERENCES TopicEntity(uuid) ON DELETE RESTRICT,
     PRIMARY KEY(courseUuid, topicUuid)
 );
 
 insert:
-INSERT OR REPLACE INTO CourseTopic(courseUuid, topicUuid) VALUES (?, ?);
+INSERT OR REPLACE INTO CourseTopicEntity(courseUuid, topicUuid) VALUES (?, ?);
 
 selectAll:
-SELECT * FROM CourseTopic;
+SELECT * FROM CourseTopicEntity;
 
 selectTopicsOfCourse:
 SELECT TopicEntity.*
 FROM TopicEntity
-JOIN CourseTopic ON TopicEntity.uuid = CourseTopic.topicUuid
-WHERE CourseTopic.courseUuid = ?;
+JOIN CourseTopicEntity ON TopicEntity.uuid = CourseTopicEntity.topicUuid
+WHERE CourseTopicEntity.courseUuid = ?;

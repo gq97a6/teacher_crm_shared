@@ -1,17 +1,17 @@
-CREATE TABLE GroupStudent (
+CREATE TABLE GroupStudentEntity (
     groupUuid TEXT NOT NULL REFERENCES GroupEntity(uuid) ON DELETE RESTRICT,
     studentUuid TEXT NOT NULL REFERENCES StudentEntity(uuid) ON DELETE RESTRICT,
     PRIMARY KEY(groupUuid, studentUuid)
 );
 
 insert:
-INSERT OR REPLACE INTO GroupStudent(groupUuid, studentUuid) VALUES (?, ?);
+INSERT OR REPLACE INTO GroupStudentEntity(groupUuid, studentUuid) VALUES (?, ?);
 
 selectAll:
-SELECT * FROM GroupStudent;
+SELECT * FROM GroupStudentEntity;
 
 selectStudentsOfGroup:
 SELECT StudentEntity.*
 FROM StudentEntity
-JOIN GroupStudent ON StudentEntity.uuid = GroupStudent.studentUuid
-WHERE GroupStudent.groupUuid = ?;
+JOIN GroupStudentEntity ON StudentEntity.uuid = GroupStudentEntity.studentUuid
+WHERE GroupStudentEntity.groupUuid = ?;

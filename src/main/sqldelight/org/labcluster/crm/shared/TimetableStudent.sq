@@ -1,20 +1,20 @@
-CREATE TABLE TimetableStudent (
+CREATE TABLE TimetableStudentEntity (
     studentUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
     lessonUuid TEXT NOT NULL REFERENCES LessonEntity(uuid) ON DELETE RESTRICT,
     PRIMARY KEY(studentUuid, lessonUuid)
 );
 
 insert:
-INSERT OR REPLACE INTO TimetableStudent(studentUuid, lessonUuid) VALUES (?, ?);
+INSERT OR REPLACE INTO TimetableStudentEntity(studentUuid, lessonUuid) VALUES (?, ?);
 
 selectStudentTimetable:
 SELECT LessonEntity.*
 FROM LessonEntity
-JOIN TimetableStudent ON LessonEntity.uuid = TimetableStudent.studentUuid
-WHERE TimetableStudent.studentUuid = ?;
+JOIN TimetableStudentEntity ON LessonEntity.uuid = TimetableStudentEntity.studentUuid
+WHERE TimetableStudentEntity.studentUuid = ?;
 
 selectStudentsOfLesson:
 SELECT StudentEntity.*
 FROM StudentEntity
-JOIN TimetableStudent ON StudentEntity.uuid = TimetableStudent.studentUuid
-WHERE TimetableStudent.lessonUuid = ?;
+JOIN TimetableStudentEntity ON StudentEntity.uuid = TimetableStudentEntity.studentUuid
+WHERE TimetableStudentEntity.lessonUuid = ?;
