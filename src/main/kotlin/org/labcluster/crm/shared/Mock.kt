@@ -9,23 +9,150 @@ import kotlin.time.Clock
 
 object Mock {
     val students = listOf(
-        Student("Jon", "Doe"),
-        Student("Mary Anne", "Smith"),
-        Student("Juan Carlos", "Garcia"),
-        Student("Li", "Wang"),
-        Student("Fatima", "Khan"),
-        Student("John Jacob", "Jingleheimer"),
-        Student("Anna", "Kowalski")
+        Student("Adam", "Nowak"),
+        Student("Anna", "Kowalska"),
+        Student("Piotr", "Wiśniewski"),
+        Student("Maria", "Wójcik"),
+        Student("Krzysztof", "Kowalczyk"),
+        Student("Agnieszka", "Kamińska"),
+        Student("Tomasz", "Lewandowski"),
+        Student("Barbara", "Zielińska"),
+        Student("Jan", "Szymański"),
+        Student("Katarzyna", "Woźniak"),
+        Student("Michał", "Dąbrowski"),
+        Student("Ewa", "Kozłowska"),
+        Student("Marcin", "Jankowski"),
+        Student("Małgorzata", "Mazur"),
+        Student("Andrzej", "Wojciechowski"),
+        Student("Teresa", "Kwiatkowska"),
+        Student("Paweł", "Krawczyk"),
+        Student("Magdalena", "Kaczmarek"),
+        Student("Stanisław", "Piotrowski"),
+        Student("Krystyna", "Grabowska"),
+        Student("Grzegorz", "Pawłowski"),
+        Student("Zofia", "Michalska"),
+        Student("Marek", "Król"),
+        Student("Elżbieta", "Zając"),
+        Student("Łukasz", "Wieczorek"),
+        Student("Joanna", "Jabłońska"),
+        Student("Józef", "Wróbel"),
+        Student("Aleksandra", "Nowakowska"),
+        Student("Kamil", "Majewski"),
+        Student("Monika", "Olszewska"),
+        Student("Tadeusz", "Stępień"),
+        Student("Danuta", "Malinowska"),
+        Student("Ryszard", "Jaworski"),
+        Student("Natalia", "Adamczyk"),
+        Student("Dariusz", "Dudek"),
+        Student("Karolina", "Nowicka"),
+        Student("Henryk", "Pawlak"),
+        Student("Marta", "Górska"),
+        Student("Mateusz", "Sikora"),
+        Student("Beata", "Witkowska"),
+        Student("Rafał", "Walczak")
     )
 
     val teachers = listOf(
-        Teacher("Jon", "Doe"),
-        Teacher("Mary Anne", "Smith"),
-        Teacher("Juan Carlos", "Garcia"),
-        Teacher("Li", "Wang"),
-        Teacher("Fatima", "Khan"),
-        Teacher("John Jacob", "Jingleheimer"),
-        Teacher("Anna", "Kowalski")
+        Teacher("Anna", "Nowak"),
+        Teacher("Jan", "Kowalski"),
+        Teacher("Maria", "Wiśniewska"),
+        Teacher("Piotr", "Wójcik"),
+        Teacher("Katarzyna", "Kowalczyk"),
+        Teacher("Krzysztof", "Kamiński"),
+        Teacher("Małgorzata", "Lewandowska"),
+        Teacher("Tomasz", "Zieliński"),
+        Teacher("Agnieszka", "Szymańska"),
+        Teacher("Paweł", "Woźniak"),
+        Teacher("Krystyna", "Dąbrowska"),
+        Teacher("Michał", "Kozłowski"),
+        Teacher("Barbara", "Jankowska"),
+        Teacher("Andrzej", "Mazur"),
+        Teacher("Ewa", "Wojciechowska"),
+        Teacher("Grzegorz", "Kwiatkowski"),
+        Teacher("Elżbieta", "Krawczyk"),
+        Teacher("Marcin", "Kaczmarek"),
+        Teacher("Zofia", "Piotrowska"),
+        Teacher("Adam", "Grabowski"),
+        Teacher("Teresa", "Pawłowska"),
+        Teacher("Stanisław", "Michalski"),
+        Teacher("Magdalena", "Król"),
+        Teacher("Łukasz", "Zając"),
+        Teacher("Joanna", "Wieczorek"),
+        Teacher("Józef", "Jabłoński"),
+        Teacher("Monika", "Wróbel"),
+        Teacher("Jakub", "Dudek"),
+        Teacher("Danuta", "Majewska"),
+        Teacher("Mateusz", "Olszewski"),
+        Teacher("Jadwiga", "Stępień"),
+        Teacher("Wojciech", "Malinowski"),
+        Teacher("Halina", "Jaworska"),
+        Teacher("Mariusz", "Adamczyk"),
+        Teacher("Irena", "Górska"),
+        Teacher("Dariusz", "Nowicki"),
+        Teacher("Beata", "Pawlak"),
+        Teacher("Zbigniew", "Sikora"),
+        Teacher("Alicja", "Witkowska"),
+        Teacher("Jerzy", "Walczak"),
+        Teacher("Dorota", "Baran"),
+        Teacher("Maciej", "Rutkowski"),
+        Teacher("Jolanta", "Michalak"),
+        Teacher("Robert", "Szewczyk"),
+        Teacher("Iwona", "Ostrowska"),
+        Teacher("Kamil", "Tomaszewski"),
+        Teacher("Grażyna", "Pietrzak"),
+        Teacher("Rafał", "Zalewski"),
+        Teacher("Paulina", "Wróblewska"),
+        Teacher("Dawid", "Jasiński"),
+        Teacher("Renata", "Marciniak"),
+        Teacher("Szymon", "Sadowski"),
+        Teacher("Marta", "Bąk"),
+        Teacher("Kacper", "Zawadzki"),
+        Teacher("Agata", "Jakubowska"),
+        Teacher("Ryszard", "Wilk"),
+        Teacher("Natalia", "Chmielewska"),
+        Teacher("Artur", "Borkowski"),
+        Teacher("Justyna", "Sokołowska"),
+        Teacher("Janusz", "Szczepański"),
+        Teacher("Karolina", "Sawicka"),
+        Teacher("Henryk", "Kucharski"),
+        Teacher("Aleksandra", "Lis"),
+        Teacher("Mirosław", "Maciejewski"),
+        Teacher("Helena", "Kubiak"),
+        Teacher("Kazimierz", "Kalinowski"),
+        Teacher("Patrycja", "Mazurek"),
+        Teacher("Jacek", "Wysocki"),
+        Teacher("Urszula", "Kołodziej"),
+        Teacher("Marek", "Kaźmierczak"),
+        Teacher("Wiktoria", "Czarnecka"),
+        Teacher("Przemysław", "Sobczak"),
+        Teacher("Sylwia", "Konieczna"),
+        Teacher("Karol", "Krupa"),
+        Teacher("Oliwia", "Głowacka"),
+        Teacher("Franciszek", "Zakrzewski"),
+        Teacher("Julia", "Wasilewska"),
+        Teacher("Damian", "Laskowski"),
+        Teacher("Dominika", "Krajewska"),
+        Teacher("Arkadiusz", "Gajewski"),
+        Teacher("Aneta", "Mróz"),
+        Teacher("Sebastian", "Czerwiński"),
+        Teacher("Ewelina", "Makowska"),
+        Teacher("Adrian", "Brzeziński"),
+        Teacher("Maja", "Przybylska"),
+        Teacher("Bartłomiej", "Kaczmarczyk"),
+        Teacher("Klaudia", "Borowska"),
+        Teacher("Filip", "Błaszkiewicz"),
+        Teacher("Weronika", "Adamska"),
+        Teacher("Antoni", "Górecki"),
+        Teacher("Kamila", "Chojnacka"),
+        Teacher("Konrad", "Szczepaniak"),
+        Teacher("Izabela", "Kołodziejczyk"),
+        Teacher("Wiktor", "Leszczyński"),
+        Teacher("Emilia", "Lipińska"),
+        Teacher("Dominik", "Kowal"),
+        Teacher("Kinga", "Zielonka"),
+        Teacher("Patryk", "Mikołajczyk"),
+        Teacher("Nikola", "Wesołowska"),
+        Teacher("Aleksander", "Cieślak")
     )
 
     val topics = listOf(
@@ -106,6 +233,16 @@ object Mock {
         )
     )
 
+    val groups = List(20) {
+        Group(
+            teacher = teachers.random(),
+            students = students.shuffled().take(6),
+            interval = 7,
+            dayIndex = 0,
+            epoch = (16 * 3600) + (30 * 60)
+        )
+    }
+
     val lessons = buildList {
         val timeZone = TimeZone.currentSystemDefault()
         val current = Clock.System.now().toLocalDateTime(timeZone)
@@ -116,7 +253,7 @@ object Mock {
             course = courses.random(),
             teacher1 = teachers.random(),
             teacher2 = teachers.random(),
-            students = students.shuffled().take(10)
+            students = groups.random().students
         )
 
         fun epochStartWith(year: Int, month: Int, day: Int) = LocalDateTime(
@@ -142,15 +279,5 @@ object Mock {
                 }
             }
         }
-    }
-
-    val groups = List(20) {
-        Group(
-            teacher = teachers.random(),
-            students = students.shuffled().take(6),
-            interval = 7,
-            dayIndex = 0,
-            epoch = (16 * 3600) + (30 * 60)
-        )
     }
 }

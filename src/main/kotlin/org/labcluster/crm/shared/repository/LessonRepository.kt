@@ -1,9 +1,7 @@
 package org.labcluster.crm.shared.repository
 
 import org.labcluster.crm.shared.Database
-import org.labcluster.crm.shared.model.Lesson
-import org.labcluster.crm.shared.model.toEntity
-import org.labcluster.crm.shared.model.toModel
+import org.labcluster.crm.shared.model.*
 
 open class LessonRepository(val defaultDatabase: Database? = null) {
 
@@ -30,23 +28,53 @@ open class LessonRepository(val defaultDatabase: Database? = null) {
         }
     }.getOrNull()
 
+    open fun insertGroupTimetable(
+        group: Group,
+        list: List<Lesson>,
+        db: Database? = defaultDatabase
+    ): Unit? = runCatching {
+        if (db == null) throw NullPointerException()
+        return db.timetableGroupQueries.transaction {
+            insert(list)
+            list.forEach { lesson ->
+                db.timetableGroupQueries.insert(group.uuid, lesson.uuid)
+            }
+        }
+    }.getOrNull()
+
+    open fun insertStudentTimetable(
+        student: Student,
+        list: List<Lesson>,
+        db: Database? = defaultDatabase
+    ): Unit? = runCatching {
+        if (db == null) throw NullPointerException()
+        return db.timetableStudentQueries.transaction {
+            insert(list)
+            list.forEach { lesson ->
+                db.timetableStudentQueries.insert(student.uuid, lesson.uuid)
+            }
+        }
+    }.getOrNull()
+
     open fun selectAll(db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
         if (db == null) throw NullPointerException()
         return db.lessonQueries.selectAll().executeAsList().map { it.toModel(db) }
     }.getOrNull()
 
-    open fun selectStudentTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
-        if (db == null) throw NullPointerException()
-        return db.timetableStudentQueries.selectStudentTimetable(studentUuid).executeAsList().map { it.toModel(db) }
-    }.getOrNull()
+    open fun selectStudentTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? =
+        runCatching {
+            if (db == null) throw NullPointerException()
+            return db.timetableStudentQueries.selectStudentTimetable(studentUuid).executeAsList().map { it.toModel(db) }
+        }.getOrNull()
 
     open fun selectGroupTimetable(studentUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
         if (db == null) throw NullPointerException()
         return db.timetableGroupQueries.selectGroupTimetable(studentUuid).executeAsList().map { it.toModel(db) }
     }.getOrNull()
 
-    open fun selectTeacherTimetable(teacherUuid: String, db: Database? = defaultDatabase): List<Lesson?>? = runCatching {
-        if (db == null) throw NullPointerException()
-        return db.lessonQueries.selectTeacherTimetable(teacherUuid).executeAsList().map { it.toModel(db) }
-    }.getOrNull()
+    open fun selectTeacherTimetable(teacherUuid: String, db: Database? = defaultDatabase): List<Lesson?>? =
+        runCatching {
+            if (db == null) throw NullPointerException()
+            return db.lessonQueries.selectTeacherTimetable(teacherUuid).executeAsList().map { it.toModel(db) }
+        }.getOrNull()
 }
