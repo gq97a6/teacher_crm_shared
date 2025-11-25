@@ -7,6 +7,11 @@ import kotlin.uuid.Uuid
 @Open
 @Serializable
 class Topic(
-    var name: String = "",
-    var uuid: String = Uuid.random().toString()
-)
+    override var name: String = "",
+    override var uuid: String = Uuid.random().toString()
+): TopicData
+
+interface TopicData {
+    var name: String
+    var uuid: String
+}

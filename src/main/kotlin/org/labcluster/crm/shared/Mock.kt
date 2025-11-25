@@ -201,42 +201,42 @@ object Mock {
     val courses = listOf(
         Course(
             name = "Introduction to Programming",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "Web Development Fundamentals",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "Database Management",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "Data Structures & Algorithms",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "Cloud Computing Essentials",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "Cybersecurity Basics",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "DevOps Fundamentals",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         ),
         Course(
             name = "Introduction to Machine Learning",
-            topics = topics.shuffled().take(15)
+            topics = topics.shuffled().take(15).toMutableList()
         )
     )
 
     val groups = List(20) {
         Group(
             teacher = teachers.random(),
-            students = students.shuffled().take(6),
+            students = students.shuffled().take(6).toMutableList(),
             interval = 7,
             dayIndex = 0,
             epoch = (16 * 3600) + (30 * 60)

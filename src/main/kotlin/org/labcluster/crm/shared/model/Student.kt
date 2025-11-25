@@ -7,7 +7,13 @@ import kotlin.uuid.Uuid
 @Open
 @Serializable
 class Student(
-    var name: String = "",
-    var surname: String = "",
-    var uuid: String = Uuid.random().toString()
-)
+    override var name: String = "",
+    override var surname: String = "",
+    override var uuid: String = Uuid.random().toString()
+): StudentData
+
+interface StudentData {
+    var name: String
+    var surname: String
+    var uuid: String
+}
