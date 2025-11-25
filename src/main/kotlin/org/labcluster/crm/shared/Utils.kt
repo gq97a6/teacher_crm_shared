@@ -5,6 +5,8 @@ import kotlinx.datetime.toLocalDateTime
 import org.labcluster.crm.shared.model.Lesson
 import kotlin.time.Instant
 
+annotation class Open
+
 fun Lesson.epochEnd() = this.epochStart + this.duration
 fun Lesson.instantStart() = Instant.fromEpochSeconds(this.epochStart)
 fun Lesson.instantEnd() = Instant.fromEpochSeconds(this.epochEnd())
