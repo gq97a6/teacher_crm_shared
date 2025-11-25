@@ -5,7 +5,7 @@ import org.labcluster.crm.shared.TopicEntity
 import kotlin.uuid.Uuid
 
 @Serializable
-data class Topic(
+open class Topic(
     val name: String = "",
     val uuid: String = Uuid.random().toString()
 )

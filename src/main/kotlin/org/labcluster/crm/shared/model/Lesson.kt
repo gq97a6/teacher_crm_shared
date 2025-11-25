@@ -6,7 +6,7 @@ import org.labcluster.crm.shared.LessonEntity
 import kotlin.uuid.Uuid
 
 @Serializable
-data class Lesson(
+open class Lesson(
     val epochStart: Long = 0,
     var epochBegin: Long? = null,
     val duration: Long = 5400,

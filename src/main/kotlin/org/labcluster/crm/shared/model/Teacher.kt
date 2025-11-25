@@ -5,7 +5,7 @@ import org.labcluster.crm.shared.TeacherEntity
 import kotlin.uuid.Uuid
 
 @Serializable
-data class Teacher(
+open class Teacher(
     val name: String = "",
     val surname: String = "",
     val uuid: String = Uuid.random().toString()

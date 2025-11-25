@@ -6,7 +6,7 @@ import org.labcluster.crm.shared.GroupEntity
 import kotlin.uuid.Uuid
 
 @Serializable
-data class Group(
+open class Group(
     val dayIndex: Long = 0,
     val epoch: Long = 0,
     val interval: Long = 7,

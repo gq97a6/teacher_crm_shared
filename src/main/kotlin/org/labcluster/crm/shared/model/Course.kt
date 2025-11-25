@@ -6,7 +6,7 @@ import org.labcluster.crm.shared.Database
 import kotlin.uuid.Uuid
 
 @Serializable
-data class Course(
+open class Course(
     val name: String = "",
     val topics: List<Topic> = listOf(),
     val uuid: String = Uuid.random().toString()
