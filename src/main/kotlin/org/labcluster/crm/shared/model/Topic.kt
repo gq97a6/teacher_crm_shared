@@ -5,6 +5,6 @@ import kotlin.uuid.Uuid
 
 @Serializable
 open class Topic(
-    val name: String = "",
-    val uuid: String = Uuid.random().toString()
+    var name: String = "",
+    var uuid: String = Uuid.random().toString()
 )

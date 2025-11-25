@@ -5,14 +5,14 @@ import kotlin.uuid.Uuid
 
 @Serializable
 open class Lesson(
-    val epochStart: Long = 0,
+    var epochStart: Long = 0,
     var epochBegin: Long? = null,
-    val duration: Long = 5400,
-    val topic: Topic? = null,
-    val course: Course? = null,
-    val teacher1: Teacher? = null,
-    val teacher2: Teacher? = null,
-    val students: List<Student> = listOf(),
-    val attendance: List<String> = listOf(),
-    val uuid: String = Uuid.random().toString()
+    var duration: Long = 5400,
+    var topic: Topic? = null,
+    var course: Course? = null,
+    var teacher1: Teacher? = null,
+    var teacher2: Teacher? = null,
+    var students: List<Student> = listOf(),
+    var attendance: List<String> = listOf(),
+    var uuid: String = Uuid.random().toString()
 )
