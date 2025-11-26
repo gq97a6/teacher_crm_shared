@@ -5,10 +5,11 @@ plugins {
     kotlin("plugin.serialization") version "2.2.0"
     kotlin("plugin.allopen") version "2.2.21"
     id("maven-publish")
+    id("org.kordamp.gradle.jandex") version "2.3.0"
 }
 
 group = "org.labcluster.crm"
-version = "2.0.4"
+version = "2.0.6"
 
 allOpen {
     annotation("org.labcluster.crm.shared.Open")

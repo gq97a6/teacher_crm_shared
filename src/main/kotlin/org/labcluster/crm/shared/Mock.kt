@@ -237,9 +237,9 @@ object Mock {
         Group(
             teacher = teachers.random(),
             students = students.shuffled().take(6).toMutableList(),
-            interval = 7,
+            intervalDays = 7,
             dayIndex = 0,
-            epoch = (16 * 3600) + (30 * 60)
+            timeEpoch = (16 * 3600) + (30 * 60)
         )
     }
 

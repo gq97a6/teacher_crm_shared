@@ -8,8 +8,8 @@ import kotlin.uuid.Uuid
 @Serializable
 class Group(
     var dayIndex: Int = 0,
-    var epoch: Long = 0,
-    var interval: Int = 7,
+    var timeEpoch: Long = 0,
+    var intervalDays: Int = 7,
     var teacher: Teacher? = null,
     var students: MutableList<Student> = mutableListOf(),
     var uuid: String = Uuid.random().toString()
