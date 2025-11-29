@@ -168,12 +168,13 @@ class SharedMock {
     }
 
     val groupLessons: Map<String, List<Lesson>> = buildMap {
-        groups.forEach { group ->
-            val lessons = mutableListOf<Lesson>()
-
-            repeat(3) { yearOffsetIndex -> //Year before, current and next
-                repeat(12) { monthIndex -> //Each month
-                    repeat(4) { weekIndex -> //Four weeks per month
+        //For every week of the year
+        repeat(3) { yearOffsetIndex ->
+            repeat(12) { monthIndex ->
+                repeat(4) { weekIndex ->
+                    //Crate a lesson for each group
+                    val lessons = mutableListOf<Lesson>()
+                    groups.forEach { group ->
                         val epochStart = createEpochStart(
                             year = 2024 + yearOffsetIndex,
                             month = monthIndex + 1,
@@ -190,12 +191,13 @@ class SharedMock {
                             students = group.students
                         )
 
-                        lessons += lesson
+                        //Update the list
+                        val currentList = get(group.uuid) ?: listOf()
+                        val newList = currentList + lesson
+                        set(group.uuid, newList)
                     }
                 }
             }
-
-            set(group.uuid, lessons)
         }
     }
 
