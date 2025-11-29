@@ -172,13 +172,11 @@ class SharedMock {
         repeat(3) { yearOffsetIndex ->
             repeat(12) { monthIndex ->
                 repeat(4) { weekIndex ->
-                    //Crate a lesson for each group
-                    val lessons = mutableListOf<Lesson>()
                     groups.forEach { group ->
                         val epochStart = createEpochStart(
                             year = 2024 + yearOffsetIndex,
                             month = monthIndex + 1,
-                            day = weekIndex + 1,
+                            day = weekIndex * 7 + group.dayIndex + 1,
                             timeEpoch = group.timeEpoch
                         )
 

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "org.labcluster.crm"
-version = "6.0.0"
+version = "7.0.0"
 
 allOpen {
     annotation("org.labcluster.crm.shared.Open")
