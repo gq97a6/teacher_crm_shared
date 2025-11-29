@@ -5,6 +5,13 @@ class MockTest {
 
     @Test
     fun mockInitTest() {
-        SharedMock()
+        val mock = SharedMock()
+        println(mock.students)
+        println(mock.teachers)
+        println(mock.topics)
+        println(mock.courses)
+        println(mock.groups)
+        println(mock.lessons)
+        println(mock.groupLessons)
     }
 }
