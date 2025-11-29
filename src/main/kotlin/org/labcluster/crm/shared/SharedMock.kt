@@ -3,11 +3,15 @@ package org.labcluster.crm.shared
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 import org.labcluster.crm.shared.model.*
-import kotlin.time.Clock
 
-object Mock {
+@Open
+class SharedMock {
+
+    init {
+        generateGroupsAndLessons()
+    }
+
     val students = listOf(
         Student("Adam", "Nowak"),
         Student("Anna", "Kowalska"),
@@ -233,49 +237,67 @@ object Mock {
         )
     )
 
-    val groups = List(20) {
-        Group(
-            teacher = teachers.random(),
-            students = students.shuffled().take(6).toMutableList(),
-            intervalDays = 7,
-            dayIndex = 0,
-            timeEpoch = (16 * 3600) + (30 * 60)
-        )
-    }
+    val groups = mutableListOf<Group>()
+    val lessons = mutableListOf<Lesson>()
+    val groupLessons = mutableMapOf<String, MutableList<Lesson>>()
 
-    val lessons = buildList {
-        val timeZone = TimeZone.currentSystemDefault()
-        val current = Clock.System.now().toLocalDateTime(timeZone)
+    private val timeZone = TimeZone.currentSystemDefault()
+    private fun createEpochStart(year: Int, month: Int, day: Int, timeEpoch: Long) = LocalDateTime(
+        year,
+        month,
+        day,
+        hour = 0,
+        minute = 0
+    ).toInstant(timeZone).epochSeconds + timeEpoch
 
-        fun lessonWith(epochStart: Long) = Lesson(
-            epochStart = epochStart,
-            topic = topics.random(),
-            course = courses.random(),
-            teacher1 = teachers.random(),
-            teacher2 = teachers.random(),
-            students = groups.random().students
-        )
+    private fun generateGroupsAndLessons() {
+        //Create groups for teachers
+        teachers.forEach { teacher ->
+            repeat(4) { //Four weeks per month
+                repeat(5) { dayIndex -> //Five days a week
+                    repeat(2) { groupIndex -> //Create two groups per day
+                        val isMorning = groupIndex == 0
+                        val students = students.shuffled().take(6).toMutableList()
+                        val minute = listOf(0, 15, 30, 45).random()
+                        val hour = if (isMorning) listOf(8, 10, 12).random()
+                        else listOf(14, 16, 18).random()
 
-        fun epochStartWith(year: Int, month: Int, day: Int) = LocalDateTime(
-            year,
-            month,
-            day,
-            listOf(10, 14, 16, 20).random(),
-            listOf(0, 15, 30, 45).random()
-        ).toInstant(timeZone).epochSeconds
-
-        repeat(3) { yearOffsetIndex ->
-            repeat(12) { monthIndex ->
-                repeat(50) { dayIndex ->
-                    add(
-                        lessonWith(
-                            epochStartWith(
-                                current.year - 1 + yearOffsetIndex, //Previous, current, next
-                                1 + monthIndex,
-                                1 + dayIndex / 2, //Two lessons per day
-                            )
+                        val group = Group(
+                            teacher = teacher,
+                            students = students,
+                            dayIndex = dayIndex,
+                            timeEpoch = hour * 3600L + minute * 60L
                         )
-                    )
+                        groups.add(group)
+                    }
+                }
+            }
+        }
+
+        //Create lessons for groups
+        groups.forEach { group ->
+            repeat(3) { yearOffsetIndex -> //Year before, current and next
+                repeat(12) { monthIndex -> //Each month
+                    repeat(4) { weekIndex -> //Four weeks per month
+                        val epochStart = createEpochStart(
+                            year = yearOffsetIndex,
+                            month = yearOffsetIndex,
+                            day = yearOffsetIndex,
+                            timeEpoch = group.timeEpoch
+                        )
+
+                        val lesson = Lesson(
+                            epochStart = epochStart,
+                            topic = topics.random(),
+                            course = courses.random(),
+                            teacher1 = group.teacher,
+                            teacher2 = null,
+                            students = group.students
+                        )
+
+                        lessons.add(lesson)
+                        groupLessons[group.uuid]?.add(lesson)
+                    }
                 }
             }
         }

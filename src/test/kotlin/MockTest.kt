@@ -1,10 +1,10 @@
-import org.labcluster.crm.shared.Mock
+import org.labcluster.crm.shared.SharedMock
 import kotlin.test.Test
 
 class MockTest {
 
     @Test
     fun mockInitTest() {
-        println(Mock)
+        SharedMock()
     }
 }
