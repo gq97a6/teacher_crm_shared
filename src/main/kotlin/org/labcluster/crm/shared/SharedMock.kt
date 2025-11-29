@@ -56,103 +56,7 @@ class SharedMock {
         Teacher("Anna", "Nowak"),
         Teacher("Jan", "Kowalski"),
         Teacher("Maria", "Wiśniewska"),
-        Teacher("Piotr", "Wójcik"),
-        Teacher("Katarzyna", "Kowalczyk"),
-        Teacher("Krzysztof", "Kamiński"),
-        Teacher("Małgorzata", "Lewandowska"),
-        Teacher("Tomasz", "Zieliński"),
-        Teacher("Agnieszka", "Szymańska"),
-        Teacher("Paweł", "Woźniak"),
-        Teacher("Krystyna", "Dąbrowska"),
-        Teacher("Michał", "Kozłowski"),
-        Teacher("Barbara", "Jankowska"),
-        Teacher("Andrzej", "Mazur"),
-        Teacher("Ewa", "Wojciechowska"),
-        Teacher("Grzegorz", "Kwiatkowski"),
-        Teacher("Elżbieta", "Krawczyk"),
-        Teacher("Marcin", "Kaczmarek"),
-        Teacher("Zofia", "Piotrowska"),
-        Teacher("Adam", "Grabowski"),
-        Teacher("Teresa", "Pawłowska"),
-        Teacher("Stanisław", "Michalski"),
-        Teacher("Magdalena", "Król"),
-        Teacher("Łukasz", "Zając"),
-        Teacher("Joanna", "Wieczorek"),
-        Teacher("Józef", "Jabłoński"),
-        Teacher("Monika", "Wróbel"),
-        Teacher("Jakub", "Dudek"),
-        Teacher("Danuta", "Majewska"),
-        Teacher("Mateusz", "Olszewski"),
-        Teacher("Jadwiga", "Stępień"),
-        Teacher("Wojciech", "Malinowski"),
-        Teacher("Halina", "Jaworska"),
-        Teacher("Mariusz", "Adamczyk"),
-        Teacher("Irena", "Górska"),
-        Teacher("Dariusz", "Nowicki"),
-        Teacher("Beata", "Pawlak"),
-        Teacher("Zbigniew", "Sikora"),
-        Teacher("Alicja", "Witkowska"),
-        Teacher("Jerzy", "Walczak"),
-        Teacher("Dorota", "Baran"),
-        Teacher("Maciej", "Rutkowski"),
-        Teacher("Jolanta", "Michalak"),
-        Teacher("Robert", "Szewczyk"),
-        Teacher("Iwona", "Ostrowska"),
-        Teacher("Kamil", "Tomaszewski"),
-        Teacher("Grażyna", "Pietrzak"),
-        Teacher("Rafał", "Zalewski"),
-        Teacher("Paulina", "Wróblewska"),
-        Teacher("Dawid", "Jasiński"),
-        Teacher("Renata", "Marciniak"),
-        Teacher("Szymon", "Sadowski"),
-        Teacher("Marta", "Bąk"),
-        Teacher("Kacper", "Zawadzki"),
-        Teacher("Agata", "Jakubowska"),
-        Teacher("Ryszard", "Wilk"),
-        Teacher("Natalia", "Chmielewska"),
-        Teacher("Artur", "Borkowski"),
-        Teacher("Justyna", "Sokołowska"),
-        Teacher("Janusz", "Szczepański"),
-        Teacher("Karolina", "Sawicka"),
-        Teacher("Henryk", "Kucharski"),
-        Teacher("Aleksandra", "Lis"),
-        Teacher("Mirosław", "Maciejewski"),
-        Teacher("Helena", "Kubiak"),
-        Teacher("Kazimierz", "Kalinowski"),
-        Teacher("Patrycja", "Mazurek"),
-        Teacher("Jacek", "Wysocki"),
-        Teacher("Urszula", "Kołodziej"),
-        Teacher("Marek", "Kaźmierczak"),
-        Teacher("Wiktoria", "Czarnecka"),
-        Teacher("Przemysław", "Sobczak"),
-        Teacher("Sylwia", "Konieczna"),
-        Teacher("Karol", "Krupa"),
-        Teacher("Oliwia", "Głowacka"),
-        Teacher("Franciszek", "Zakrzewski"),
-        Teacher("Julia", "Wasilewska"),
-        Teacher("Damian", "Laskowski"),
-        Teacher("Dominika", "Krajewska"),
-        Teacher("Arkadiusz", "Gajewski"),
-        Teacher("Aneta", "Mróz"),
-        Teacher("Sebastian", "Czerwiński"),
-        Teacher("Ewelina", "Makowska"),
-        Teacher("Adrian", "Brzeziński"),
-        Teacher("Maja", "Przybylska"),
-        Teacher("Bartłomiej", "Kaczmarczyk"),
-        Teacher("Klaudia", "Borowska"),
-        Teacher("Filip", "Błaszkiewicz"),
-        Teacher("Weronika", "Adamska"),
-        Teacher("Antoni", "Górecki"),
-        Teacher("Kamila", "Chojnacka"),
-        Teacher("Konrad", "Szczepaniak"),
-        Teacher("Izabela", "Kołodziejczyk"),
-        Teacher("Wiktor", "Leszczyński"),
-        Teacher("Emilia", "Lipińska"),
-        Teacher("Dominik", "Kowal"),
-        Teacher("Kinga", "Zielonka"),
-        Teacher("Patryk", "Mikołajczyk"),
-        Teacher("Nikola", "Wesołowska"),
-        Teacher("Aleksander", "Cieślak")
+        Teacher("Piotr", "Wójcik")
     )
 
     val topics = listOf(
@@ -263,34 +167,10 @@ class SharedMock {
         }
     }
 
-    val lessons = buildList {
-        groups.forEach { group ->
-            repeat(3) { yearOffsetIndex -> //Year before, current and next
-                repeat(12) { monthIndex -> //Each month
-                    repeat(4) { weekIndex -> //Four weeks per month
-                        val epochStart = createEpochStart(
-                            year = 2024 + yearOffsetIndex,
-                            month = monthIndex + 1,
-                            day = weekIndex + 1,
-                            timeEpoch = group.timeEpoch
-                        )
-
-                        Lesson(
-                            epochStart = epochStart,
-                            topic = topics.random(),
-                            course = courses.random(),
-                            teacher1 = group.teacher,
-                            teacher2 = null,
-                            students = group.students
-                        ).let { add(it) }
-                    }
-                }
-            }
-        }
-    }
-
     val groupLessons: Map<String, List<Lesson>> = buildMap {
         groups.forEach { group ->
+            val lessons = mutableListOf<Lesson>()
+
             repeat(3) { yearOffsetIndex -> //Year before, current and next
                 repeat(12) { monthIndex -> //Each month
                     repeat(4) { weekIndex -> //Four weeks per month
@@ -310,13 +190,14 @@ class SharedMock {
                             students = group.students
                         )
 
-                        val currentList = get(group.uuid) ?: listOf()
-                        val newList = currentList + lesson
-
-                        set(group.uuid, newList)
+                        lessons += lesson
                     }
                 }
             }
+
+            set(group.uuid, lessons)
         }
     }
+
+    val lessons: List<Lesson> = groupLessons.values.flatten()
 }
